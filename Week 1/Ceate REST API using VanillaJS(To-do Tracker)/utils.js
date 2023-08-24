@@ -1,7 +1,5 @@
-const { promises } = require("dns")
-
 getReqData=(req)=>{
-    return new promises((resolve,reject)=>{
+    return new Promise((resolve,reject)=>{
     try {
         let body=""
 
