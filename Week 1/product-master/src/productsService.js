@@ -4,7 +4,7 @@ const productsList = require("./products.json").products;
 
 
 const getProducts = () => {
-  return productsList
+  return JSON.stringify(productsList)
 }
 
 const getProductsById = (productId, done) => {
@@ -14,24 +14,52 @@ const getProductsById = (productId, done) => {
 product=productsList.find(product=>product.id===productId)
 if(!product){
   console.log("No Product Found ...");
+  return done( "Requested product doesn't exist..!",null);
 }
-  return done(null, "Requested product doesn't exist..!");
+return done(null,JSON.stringify(product)); 
 }
 
 const saveProduct = (newProduct, done) => {
  // save a product
-  return done(null, JSON.stringify(productsList));
+ const isProduct=productsList.find(product=>product.id===newProduct.id)
+ if(!isProduct){
+   productsList.push(newProduct)
+   return done(null, JSON.stringify(productsList));
+ }else{
+
+   return done("Product already exists..!", null);
+ }
 }
 
 const updateProduct = (productId, updateData, done) => {
   let updatedProductList = null;
-  // update the product list
+ const product= productsList.find(product=>product.id===productId)
+ if(product){
+  product.name=updateData.name
+  product.price=updateData.price
+  product.quantity=updateData.quantity
+  product.description=updateData.description
+
+  updatedProductList=productsList
+
   done(null, JSON.stringify(updatedProductList));
+ }else{
+    // update the product list
+    done("Requested product doesn't exist..!", null);
+ }
+
 }
 
 const deleteProduct = (productId, done) => {
+  const product= productsList.find(product=>product.id===productId)
+  if(product){
+    const index=productsList.indexOf(product)
+    productsList.splice(index,1)
+    done(null, JSON.stringify(productsList));
+  }else{
+    done("Requested product doesn't exist..!", null);
+  }
   // delete a product    
-  done(null, JSON.stringify(productsList));
 }
 
 
