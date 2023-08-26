@@ -1,5 +1,18 @@
 const getRequestData = (req) => {
- // Write logic here to read the request body data
+    return new Promise((resolve,reject)=>{
+        try {
+            let body=""
+            req.on('data',(chunks)=>{
+                body+=chunks.toString()
+            })
+            req.on('end',()=>{
+                resolve(body)
+            })
+        } catch (error) {
+            reject(error)
+        }
+    })
+
 }
 
 module.exports = getRequestData
