@@ -32,7 +32,7 @@ const saveProduct = (newProduct, done) => {
 }
 
 const updateProduct = (productId, updateData, done) => {
-  let updatedProductList = null;
+ 
  const product= productsList.find(product=>product.id===productId)
  if(product){
   product.name=updateData.name
@@ -40,9 +40,9 @@ const updateProduct = (productId, updateData, done) => {
   product.quantity=updateData.quantity
   product.description=updateData.description
 
-  updatedProductList=productsList
+  
 
-  done(null, JSON.stringify(updatedProductList));
+  done(null, JSON.stringify(productsList));
  }else{
     // update the product list
     done("Requested product doesn't exist..!", null);
