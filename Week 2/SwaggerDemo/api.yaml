@@ -1,15 +1,81 @@
 openapi: 3.0.0
 info:
-  title: Sample API
-  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML. or HTML
+  title: Manager.sa API
+  description: BookStore API for Coursera Guided project
   version: 1.0
-
-
+  contact:
+    name: Ahsan
+    url: http://bookstore.com
+    email: ahsanbasheer266@gmail.com
 servers:
-  - url: http://localhost:8081
-    description: Local server
-  - url: http://prod.com/
-    description: pre-production server
-  - url: http://test.com/
-    description: production server
-
+  - url: http://bookstore.dev.com
+  - url: http://bookstore.production.com
+  - url: https://bookstore.perf.com
+paths:
+  /bookstore:
+    get:
+      summary: Get book information
+      description: Get information about a book by its name.
+      parameters:
+        - in: query
+          name: bookName
+          required: true
+          schema:
+            type: string
+            example: "Game of Thrones"
+      responses:
+        200:
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/book'
+    post:
+      summary: Add a new book
+      description: Add a new book to the bookstore.
+      requestBody:
+        description: Book data to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/book'
+      responses:
+        201:
+          description: Book added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/book'
+  /bookstore/{bookId}:
+    get:
+      summary: Get book information by ID
+      description: Get information about a book by its unique ID.
+      parameters:
+        - in: path
+          name: bookId
+          required: true
+          schema:
+            type: integer
+            example: 2
+      responses:
+        200:
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/book'
+components:
+  schemas:
+    book:
+      type: object
+      properties:
+        bookId:
+          type: integer
+          example: 2
+        bookName:
+          type: string
+          example: "Game of Thrones"
+        authorName:
+          type: string
+          example: "Ahsan Bashir"

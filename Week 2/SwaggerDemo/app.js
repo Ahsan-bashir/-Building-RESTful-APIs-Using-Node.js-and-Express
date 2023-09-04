@@ -7,7 +7,8 @@ app.get('/',(req,resp)=>{
 resp.send('Results are here')
 })
 
-app.use('/api-docs',swaggerServe,swaggerSetup)
+app.use('/api-docs',swaggerServe)
+app.use('/api-docs',swaggerSetup)
 
 app.listen(PORT,()=>{
     console.log(`App is listening on Port : ${PORT}`);
