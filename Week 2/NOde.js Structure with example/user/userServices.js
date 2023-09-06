@@ -4,6 +4,6 @@ const getUsers=(done)=>{
     userDAO.getUsers(done)
 }
 const getUserbyId=(userId,done)=>{
-    userDAO.getUsers(userId,done)
+    userDAO.getUserbyId(userId,done)
 }
 module.exports={getUsers,getUserbyId}

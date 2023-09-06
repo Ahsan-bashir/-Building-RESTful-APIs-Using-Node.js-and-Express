@@ -6,6 +6,9 @@ const getUsers=(done)=>{
             return done("Encountered an Error while fetching data !")
         }
         const userData=JSON.parse(fileContent)
+        if(!fileContent){
+            return done("No data in file")
+        }
         return done(undefined,userData)
     })
 }
