@@ -28,5 +28,25 @@ return done(undefined,fetchedUsers)
 
     })
 }
-module.exports={getUsers,getUserbyId}
+
+const updateUserbyId=(userId,userName)=>{
+    fs.readFile('/user/users.json',(err,fileContent)=>{
+        if(err){
+            return done ("Cannot get data from file")
+        }
+        let userData=JSON.parse(fileContent)
+        let index=userData.indexOf(usr=>usr.userId===userId)
+        if(index==-1){
+            return done("No user with this id")
+        }
+        userData[index].userName=userName
+        fs.writeFile('/user/users.json',JSON.stringify(userData),(err,updatedData)=>{
+            if(err){
+                return done("Cannot write data")
+            }   
+            return done(undefined,"Successfully Updated user details ")  
+        })
+    })
+}
+module.exports={getUsers,getUserbyId,updateUserbyId}
 
