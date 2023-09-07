@@ -7,4 +7,8 @@ const getUsers=(done)=>{
 const getUserbyID=(userId,done)=>{
     userServices.getUserbyId(userId,done)
 }
-module.exports={getUsers,getUserbyID}
+
+const updateUserbyId=(userId,userName,done)=>{
+    userServices.getUserbyId(userId,userName,done)
+}
+module.exports={getUsers,getUserbyID,updateUserbyId}

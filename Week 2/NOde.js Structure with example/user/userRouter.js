@@ -33,4 +33,22 @@ routes.get('/:userId',(req,res)=>{
         return res.status(500).send("Try again in few minutes")
     }
 })
+
+routes.put('/:userId',(req,res)=>{
+    try {
+        let id=req.params.userId
+        let userName=req.body.userName
+        userController.updateUserbyId(id,userName,(err,results)=>{
+            if(err){
+               return res.status(400).send(err)
+            }
+                return res.status(200).send({
+                    status:"OK",
+                    data:results
+                })
+        })
+    } catch (error) {
+        return res.status(500).send("Try again in few minutes",error)
+    }
+})
 module.exports=routes

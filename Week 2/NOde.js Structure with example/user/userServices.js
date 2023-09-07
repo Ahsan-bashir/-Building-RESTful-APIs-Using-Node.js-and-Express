@@ -6,4 +6,7 @@ const getUsers=(done)=>{
 const getUserbyId=(userId,done)=>{
     userDAO.getUserbyId(userId,done)
 }
-module.exports={getUsers,getUserbyId}
+const updateUserbyId=(userId,userName,done)=>{
+    userDAO.getUserbyId(userId,userName,done)
+}
+module.exports={getUsers,getUserbyId,updateUserbyId}
