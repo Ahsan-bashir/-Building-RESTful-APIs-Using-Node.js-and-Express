@@ -5,7 +5,7 @@ const config=require('./config')
 const userRouter=require('./user/userRouter')
 const swaggerUI=require('swagger-ui-express')
 const YAML=require('yamljs')
-const swaggerDocs=YAML.load('/api-docs/swagger.yaml')
+const swaggerDocs=YAML.load('./api-docs/swagger.yaml')
 const LoggerMiddleware=(req,res,next)=>{
     console.log(` Logged ${req.url}  ${req.method}`);
     next()
