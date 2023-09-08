@@ -1,0 +1,94 @@
+swagger: '2.0'
+info:
+  description: This is Services API
+  version: 1.0.0
+  title: Service API
+host: localhost:3000
+basePath: /api/v1
+schemes: 
+  - http
+tags: 
+  - name: Service Details
+    description: Details of Services for a Customer
+
+paths: 
+  /user:
+    get:
+      tags: 
+        - All Services
+      summary: Retrieve all services 
+      security: []
+      responses: 
+        '200':
+          description: Successful Operation
+    post:
+      tags: 
+        - create new services
+      summary: create a new service
+      parameters: 
+        - in: body
+          name: body
+          required: true
+          schema: 
+            type: string
+      responses:
+        '201':
+          description: Created
+  /user/{id}:
+    get:
+      tags:
+        - Single Service
+      summary: Retrieve a single service by ID
+      description: Retrieve a service using its ID
+      parameters:
+        - in: path
+          name: id
+          description: ID of the service to be retrieved
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          description: Service not found
+    delete: 
+      tags:
+        - Delete a service
+      summary: delete a Service
+      description: delete a Specific Service by Id in the path
+      parameters: 
+        - in: path
+          name: id
+          description: ID of service to be deleted
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: invalid id
+        '404':
+          description: service not found
+    put: 
+      tags:
+        - Update a service
+      summary: update a Service
+      description: update a Specific Service by Id in the path
+      parameters: 
+        - in: path
+          name: id
+          description: ID of service to be updated
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Service object that needs to be updated
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: successful operation
