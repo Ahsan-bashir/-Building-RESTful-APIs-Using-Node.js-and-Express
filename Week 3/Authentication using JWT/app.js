@@ -3,7 +3,7 @@ const express=require('express');
 const app=express();
 const dateFormat=require('date-format');
 const authRouter=require('./Authentication');
-const confiq=require('./config');
+const config=require('./config');
 const morgan=require('morgan');
 // parse JSON data into req.body
 app.use(express.json());
@@ -13,6 +13,10 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :t
 // call authentication router
 app.use('/auth',authRouter)
 
+// server listening on 3000
+app.listen(config.PORT,()=>{
+    console.log(`listening on port : ${config.PORT}`);
+})
 
 
 
