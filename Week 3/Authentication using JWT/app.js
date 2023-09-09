@@ -9,4 +9,10 @@ const morgan=require('morgan');
 app.use(express.json());
 // morgan for logging the request
 morgan.token('time',()=>dateFormat.asString(dateFormat.ISO8601_FORMAT,new Date()));
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :time'));
+// call authentication router
+app.use('/auth',authRouter)
+
+
+
 
