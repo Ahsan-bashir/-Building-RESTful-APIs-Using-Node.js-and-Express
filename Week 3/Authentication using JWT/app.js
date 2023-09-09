@@ -7,4 +7,6 @@ const confiq=require('./config');
 const morgan=require('morgan');
 // parse JSON data into req.body
 app.use(express.json());
+// morgan for logging the request
+morgan.token('time',()=>dateFormat.asString(dateFormat.ISO8601_FORMAT,new Date()));
 
