@@ -26,3 +26,5 @@ router.post('/register',(req,res)=>{
         return res.status(400).send({message:error.message});
     }
 });
+
+module.exports=router;
