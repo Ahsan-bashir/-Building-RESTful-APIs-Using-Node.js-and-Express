@@ -3,6 +3,8 @@ const express=require('express');
 const app=express();
 const { format } = require('date-fns');
 const authRouter=require('./Authentication');
+const userRouter=require('./Users');
+const verifyAuth=require('./Authentication/authMiddleware');
 const config=require('./config');
 const morgan=require('morgan');
 // parse JSON data into req.body
@@ -14,6 +16,7 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :t
 
 // call authentication router
 app.use('/auth',authRouter)
+app.use('/users',verifyAuth,userRouter)
 
 // server listening on 3000
 app.listen(config.PORT,()=>{
