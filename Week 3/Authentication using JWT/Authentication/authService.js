@@ -8,4 +8,16 @@ function verifyUser({email,password},userData){
     }
     return false;
 }
+// function to create a JWT token
 
+function createJWT(userData){    
+    const payload={
+        role:"USER",
+        email:userData.email,
+        name:userData.name
+    }
+    const token=JWT.sign(payload,config.AUTH_secret,{expiresIn:3600})
+    return token;
+}
+
+module.exports={verifyUser,createJWT};
