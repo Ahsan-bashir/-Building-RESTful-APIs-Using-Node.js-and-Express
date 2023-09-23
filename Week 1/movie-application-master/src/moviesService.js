@@ -4,14 +4,13 @@ const movies = require('../data/movies.json')
 
 const getMovies = (done) => {
   // get all movies
-  axios.get('http://localhost:3000/movies')
-    .then((response) => {
-      done(null, response.data); // Pass the data to the callback
-    })
-    .catch((error) => {
-      done(error, null); // Pass the error to the callback
-    });
+  axios.get('http://localhost:3000/movies').then((response) => {
+    done(response.data)
+  }).catch((error) => {
+    done(error)
+  })
 }
+
 
 
 const getMoviesById = (movieId, done) => {
