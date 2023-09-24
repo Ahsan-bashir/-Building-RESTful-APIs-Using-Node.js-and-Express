@@ -1,27 +1,39 @@
 
 //import fs module
-
-
+const fs = require("fs");
+const productsData = require("./products.json");
 
 
 //The getProducts function take done as callback
 //It will read the product.json file
 
-const getProducts = function(done){
-    
+const getProducts = function (done) {
 
-//parse the filecontent and save it in another varible say productdata
-//return the callback with first parameter as undefined and second parameter as productdata
-       
+  //parse the filecontent and save it in another varible say productdata
+  //return the callback with first parameter as undefined and second parameter as productdata
+  fs.readFile("./products.json", (err, fileContent) => {
+    if (err) {
+      return done(err, undefined);
+    }
+    const productData = JSON.parse(fileContent);
+    return done(undefined, productData);
+  })
 }
 
 
 //The function getProductById will take two parameters first the id and second the callback
 //It will read the product.json file
-const getProductById = function(id,done){
-    //write all the logical steps
-    //return the callback with first parameter as undefined and second parameter as productDetails
-      
+const getProductById = function (id, done) {
+  //write all the logical steps
+  //return the callback with first parameter as undefined and second parameter as productDetails
+    fs.readFile("./products.json", (err, fileContent) => {
+    if (err) {
+      return done(err, undefined);
+    }
+    const productData = JSON.parse(fileContent);
+    const productDetails = productData.find((product) => product.id === id);
+    return done(undefined, productDetails);
+  })
 }
 
 
@@ -31,27 +43,42 @@ const saveProductDetails = function (ProductDetails, done) {
   //write all the logical steps
   //parse the filecontent and save it in another varible say productdata
   //push the productDetails in the productData
-      
+    fs.writeFile("./products.json", JSON.stringify(ProductDetails), (err) => {
+    if (err) {
+      return done(err, undefined);
+    }
+   
   //Write the productData into the file 
-     
+    productsData.push(ProductDetails);
   //return the callback with undefined and ProductDetails
-     
-    
+  return done(undefined, ProductDetails);
+  })
+
+}
+
+//The method deleteProductById will take productId and done as parameters
+//It will read the product.json file
+
+const deleteProductById = function (productId, done) {
+  //Write all the logical steps
+  //return the callback with first parameter as undefined and second parameter as productDetails
+  const productDetails = productsData.filter((product) => product.id !== productId);
+  fs.writeFile("./products.json", JSON.stringify(productDetails), (err) => {
+    if (err) {
+      return done(err, undefined);
+    }
+    const index=productsData.findIndex((product)=>product.id===productId);
+    productsData.splice(index,1)
+    return done(undefined, productsData);
   }
-
-  //The method deleteProductById will take productId and done as parameters
-  //It will read the product.json file
-
-  const deleteProductById = function(productId, done){
-    //Write all the logical steps
-     //return the callback with first parameter as undefined and second parameter as productDetails
-  }
+  )
+}
 
 
-module.exports ={
-    getProducts,
-    getProductById,
-    saveProductDetails,
-    deleteProductById
-    
+module.exports = {
+  getProducts,
+  getProductById,
+  saveProductDetails,
+  deleteProductById
+
 }
