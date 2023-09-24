@@ -3,7 +3,7 @@
 const axios = require("axios");
 //After starting the JSOn server check the port on which is running accordingly change 
 //the port in url given below
-const PORT=process.env.PORT || 3000;
+const PORT=process.env.PORT || "8000";
 //This method will get all movies from json server
 const getMovies = (done) => {
   // This url can be used - axios.get("http://localhost:3000/movies")
