@@ -16,6 +16,7 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :t
 
 // call authentication router
 app.use('/auth',authRouter)
+// call User router
 app.use('/users',verifyAuth,userRouter)
 
 // server listening on 3000
