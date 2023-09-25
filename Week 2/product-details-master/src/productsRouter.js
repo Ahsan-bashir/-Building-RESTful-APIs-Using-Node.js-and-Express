@@ -1,7 +1,9 @@
 
 
 //import the modules require
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router();
+const productsController = require("./productsController");
 //This method will get all the Product form the product.json 
 router.get("/", (req, res) => {
   try {
@@ -10,20 +12,17 @@ router.get("/", (req, res) => {
     //if result return the response as 200 with status OK and  data as result
     productsController.getProducts((err, results) => {
      if(err){
-       return res.status(400).json({
-         status: "error",
-         message: err.message
-       })
+       return res.status(400).send("error")
      }
-     return res.status(200).json({
-        status: "success",
+     return res.status(200).send({
+        status: "OK",
         data: results
       })
 
     });
     //Handle the exception return response as 400 with status as some error msg
   } catch (err) {
-    return res.status(400).json({ 
+    return res.status(400).send({ 
       status: "error",
       message: err.message
     })
@@ -34,7 +33,7 @@ router.get("/", (req, res) => {
 router.get("/:productId", (req, res) => {
   try {
     //get the productid from the req.params
-    const produvtId = req.params.productId;
+    const productId = req.params.productId; // Corrected the variable name
     
     //calling the controller getProductById method 
     //if error return the response as 400
@@ -45,9 +44,10 @@ router.get("/:productId", (req, res) => {
           status: "error",
           message: err.message
         })
+        console.log(err);
       }
-      return res.status(200).json({
-          status: "success",
+      return res.status(200).send({
+          status: "OK",
           data: results
         })
     });
@@ -62,19 +62,16 @@ router.get("/:productId", (req, res) => {
   }
 });
 
+
 //This method will save/post a new product in the product.json 
 router.post("/", (req, res) => {
   try {
     //get all the productdetails from the req.body
     const productDetails = {
-    "productId": req.body.productId,
     "productName": req.body.productName,
-    "productCode": req.body.productCode,
-    "releaseDate": req.body.releaseDate,
     "description": req.body.description,
     "price": req.body.price,
-    "starRating": req.body.starRating,
-    "imageUrl": req.body.imageUrl
+    "quantity": req.body.quantity,
     }
     //calling the controller saveProductDetails method 
     //if error return the response as 400
@@ -87,7 +84,7 @@ router.post("/", (req, res) => {
        })
      }
       return res.status(201).json({
-        status: "success",
+        status: "OK",
         data: results
       })
     });
@@ -122,7 +119,7 @@ router.delete("/:productId", (req, res) => {
       }
 
       return res.status(200).json({
-        status: "success",
+        status: "OK",
         data: results
       })
           });

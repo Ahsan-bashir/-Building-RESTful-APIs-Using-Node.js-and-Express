@@ -1,7 +1,7 @@
 
 //import fs module
 const fs = require("fs");
-const productsData = require("./products.json");
+const productsJSONData = require("./products.json");
 
 
 //The getProducts function take done as callback
@@ -30,8 +30,9 @@ const getProductById = function (id, done) {
     if (err) {
       return done(err, undefined);
     }
-    const productData = JSON.parse(fileContent);
-    const productDetails = productData.find((product) => product.id === id);
+    const productsData = JSON.parse(fileContent);
+    const productDetails = productsData.find((product) => product.id === id);
+
     return done(undefined, productDetails);
   })
 }
@@ -43,15 +44,16 @@ const saveProductDetails = function (ProductDetails, done) {
   //write all the logical steps
   //parse the filecontent and save it in another varible say productdata
   //push the productDetails in the productData
-    fs.writeFile("./products.json", JSON.stringify(ProductDetails), (err) => {
+   const productData=JSON.parse(productsJSONData)
+   productData.push(ProductDetails)
+   
+  //Write the productData into the file 
+  fs.writeFile("./products.json", JSON.stringify(productData), (err) => {
     if (err) {
       return done(err, undefined);
     }
-   
-  //Write the productData into the file 
-    productsData.push(ProductDetails);
   //return the callback with undefined and ProductDetails
-  return done(undefined, ProductDetails);
+  return done(undefined, productData);
   })
 
 }
@@ -60,19 +62,18 @@ const saveProductDetails = function (ProductDetails, done) {
 //It will read the product.json file
 
 const deleteProductById = function (productId, done) {
-  //Write all the logical steps
-  //return the callback with first parameter as undefined and second parameter as productDetails
-  const productDetails = productsData.filter((product) => product.id !== productId);
+  const productData = JSON.parse(productsJSONData);
+  const productDetails = productData.filter((product) => product.id !== productId);
+
   fs.writeFile("./products.json", JSON.stringify(productDetails), (err) => {
     if (err) {
       return done(err, undefined);
     }
-    const index=productsData.findIndex((product)=>product.id===productId);
-    productsData.splice(index,1)
-    return done(undefined, productsData);
-  }
-  )
+    
+    return done(undefined, productDetails);
+  });
 }
+
 
 
 module.exports = {
