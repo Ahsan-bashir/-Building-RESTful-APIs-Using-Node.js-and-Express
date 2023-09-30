@@ -29,13 +29,17 @@ authController.registerUser(userDetails,(err,result)=>{
 
 //This method post will login the user once they are registered
 router.post('/login',(req,res)=>{
-   
-
-        //retrive email and password from req.body
-      
-        //calling the authController login usermethod return the error or the result 
+  //retrive email and password from req.body
+        const {email,password}=req.body;
+        
+  //calling the authController login usermethod return the error or the result 
         authController.loginUser({email,password},(err,result)=>{
-           
+           if(err){
+               res.status(500).json({message:err.message})
+           }
+                  else{
+                res.status(200).json({message:result})
+                  }
         })
 
 })
