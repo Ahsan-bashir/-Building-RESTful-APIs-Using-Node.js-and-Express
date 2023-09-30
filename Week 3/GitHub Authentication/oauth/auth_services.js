@@ -16,6 +16,7 @@ const getGitHubAccessToken=(code,done)=>{
     }).then((token)=>{
       return  done(null,token);
     }).catch((err)=>{
+        console.log(err);
        return done(err,null);
     })
 }
