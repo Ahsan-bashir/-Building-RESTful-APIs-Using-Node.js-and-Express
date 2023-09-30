@@ -12,12 +12,12 @@ const getGitHubAccessToken=(code,done)=>{
     const opts={headers:{accept:'application/json'}}
 
     axios.post('https://github.com/login/oauth/access_token',body,opts).then((response)=>{
-        response.data.access_token
+       return response.data.access_token
     }).then((token)=>{
-        done(null,token);
+      return  done(null,token);
     }).catch((err)=>{
-        done(err,null);
+       return done(err,null);
     })
 }
 
-module.exports=getGitHubAccessToken;
+module.exports={getGitHubAccessToken};
