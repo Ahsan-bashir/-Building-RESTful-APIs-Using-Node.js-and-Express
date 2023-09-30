@@ -41,14 +41,15 @@ function loginUser({ email, password }, done) {
             done({ message: 'User does not exist' }, null)
         }
         else {
-            authService.createToken(user, password, (err, result) => {
+            authService.createJWT({user, password}, (err, token) => {
                 if (err) {
                     done(err, null)
                 }
                 else {
-                    done(null, result)
+                    done(null, token)
                 }
-            })
+            }
+            )
         }
     })  
   }

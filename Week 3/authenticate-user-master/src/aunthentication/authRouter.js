@@ -35,10 +35,10 @@ router.post('/login',(req,res)=>{
   //calling the authController login usermethod return the error or the result 
         authController.loginUser({email,password},(err,result)=>{
            if(err){
-               res.status(500).json({message:err.message})
+               res.status(401).json({message:err.message})
            }
                   else{
-                res.status(200).json({message:result})
+                    res.status(200).send({STATUS:"OK",data:result});
                   }
         })
 

@@ -19,7 +19,7 @@ function verifyUser({email,password},userData){
 
 //This function will create JWT token and return the token
 // use the method jwt.sign having two parameters payload and Auth_Secret
-function createJWT(userdata) {
+function createJWT(userdata,done) {
   //create payload
    const payload = {
       email: userdata.email,
@@ -27,8 +27,14 @@ function createJWT(userdata) {
     };
     //create token
     const token = JWT.sign(payload, config.AUTH_SECRET);
+    if(token===undefined){
+     return done({message:'Token not created'},null)
+    }
+    else{
+     return done(null,token)
+    }
     //return token
-    return token;
+   
   }
 
 
