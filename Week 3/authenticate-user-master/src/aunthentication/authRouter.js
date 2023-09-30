@@ -19,7 +19,7 @@ router.post('/register',(req,res)=>{
   //calling authController registeruser method return the error msg or the result
 authController.registerUser(userDetails,(err,result)=>{
         if(err){
-            res.status(500).json({message:err.message})
+            res.status(401).json({message:err.message})
         }
         else{
             res.status(200).json({message:result})

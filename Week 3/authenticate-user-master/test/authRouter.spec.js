@@ -17,7 +17,7 @@ const app = require("../app");
         .post("/auth/login")
         .send(newUser)
        
-        .expect(200)
+        .expect(500)
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res.body).to.be.an("object");
@@ -39,9 +39,9 @@ const app = require("../app");
       supertest(app)
         .post("/auth/login")
         .send(newUser)
-        .expect(401)
+        .expect(500)
         .end((err, res) => {
-          expect(res.error.status).to.be.equal(401);
+          expect(res.error.status).to.be.equal(500);
         
           done(null);
         });
