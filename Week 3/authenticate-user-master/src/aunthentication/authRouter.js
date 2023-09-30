@@ -1,16 +1,29 @@
 
 
 //import the modules that are required
-
+const   express = require('express');
+const router = express.Router();
+const authController=require('./authController');
 //This method post will regiater the use
 router.post('/register',(req,res)=>{
-  
+  //retrive name, email and password from request body
+        const {name,email,password}=req.body;
+        //create userDetails object
+        const userDetails={
+            name,
+            email,
+            password
+        }
 
-        //retrive name, email and password from request body
      
-        //calling authController registeruser method return the error msg or the result
+  //calling authController registeruser method return the error msg or the result
 authController.registerUser(userDetails,(err,result)=>{
-   
+        if(err){
+            res.status(500).json({message:err.message})
+        }
+        else{
+            res.status(200).json({message:result})
+        }
 })
 })
 
