@@ -5,7 +5,7 @@ const oauthCtrl = require("./auth.controller");
 
 // redirects the login to consent authorization screen from github
 router.get('/login', (req, res) => {
- 
+    
 });
 
 
