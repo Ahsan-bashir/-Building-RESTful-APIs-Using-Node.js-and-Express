@@ -11,7 +11,7 @@ function getGithubAccessToken(code, done) {
     const opts = { headers: { accept: 'application/json' } }
 
     axios.post('https://github.com/login/oauth/access_token',body,opts).then((response)=>{
-       return response.data.access_token
+       return response.data.access_token;
     }).then((token)=>{
       return  done(null,token);
     }).catch((err)=>{
@@ -32,7 +32,7 @@ function getAccessTokenOfUser(token, done) {
   }).catch((err)=>{
       return done(err,null);
   })
-  
+
 }
 
 module.exports = {

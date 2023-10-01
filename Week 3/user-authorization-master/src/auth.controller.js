@@ -13,6 +13,7 @@ function oauthProcessor(code, done) {
     if (err) {
       return done(err, null);
     }
+    
     /**
      * 
      * Get the user profile for the logged in user
