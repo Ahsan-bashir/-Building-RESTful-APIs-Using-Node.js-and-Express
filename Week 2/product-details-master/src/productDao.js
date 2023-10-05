@@ -2,21 +2,25 @@
 //import fs module
 const fs = require("fs");
 const productsJSONData = require("./products.json");
+const path=require('path');
+const { log } = require("console");
 
-
+const dirPath=path.join(__dirname,'products.json')
 //The getProducts function take done as callback
 //It will read the product.json file
 
 const getProducts = function (done) {
-
+  
+  console.log(dirPath);
   //parse the filecontent and save it in another varible say productdata
   //return the callback with first parameter as undefined and second parameter as productdata
-  fs.readFile("./products.json", (err, fileContent) => {
+  fs.readFile(dirPath, (err, fileContent) => {
     if (err) {
+      console.log(err);
       return done(err, undefined);
     }
     const productData = JSON.parse(fileContent);
-    return done(undefined, productData);
+    return done(null, productData);
   })
 }
 
@@ -26,7 +30,7 @@ const getProducts = function (done) {
 const getProductById = function (id, done) {
   //write all the logical steps
   //return the callback with first parameter as undefined and second parameter as productDetails
-    fs.readFile("./products.json", (err, fileContent) => {
+    fs.readFile(dirPath, (err, fileContent) => {
     if (err) {
       return done(err, undefined);
     }
@@ -48,7 +52,7 @@ const saveProductDetails = function (ProductDetails, done) {
    productData.push(ProductDetails)
    
   //Write the productData into the file 
-  fs.writeFile("./products.json", JSON.stringify(productData), (err) => {
+  fs.writeFile(dirPath, JSON.stringify(productData), (err) => {
     if (err) {
       return done(err, undefined);
     }
@@ -65,7 +69,7 @@ const deleteProductById = function (productId, done) {
   const productData = JSON.parse(productsJSONData);
   const productDetails = productData.filter((product) => product.id !== productId);
 
-  fs.writeFile("./products.json", JSON.stringify(productDetails), (err) => {
+  fs.writeFile(dirPath, JSON.stringify(productDetails), (err) => {
     if (err) {
       return done(err, undefined);
     }
