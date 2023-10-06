@@ -1,17 +1,10 @@
-
-
 const express = require('express')
-
 const config = require("./config");
 const app = express();
 const productsRouter = require("./src");
 
-
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use("/api/v1/products", productsRouter);
 
 
