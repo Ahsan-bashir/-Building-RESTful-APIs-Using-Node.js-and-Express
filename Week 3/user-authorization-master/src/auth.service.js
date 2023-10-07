@@ -23,9 +23,18 @@ function getGithubAccessToken(code, done) {
 
 
 // Function to get the user profile for the token provided
+// function getAccessTokenOfUser(token, done) {
+//   // Github APIs are authenticated and we have to share the token in headers
+//   // The token is same as what we recieved in the previous step
+//   const opts = { headers: { Authorization: `token ${token}` } }
+//   axios.get('https://api.github.com/user', opts).then((response)=>{
+//       return done(null,response.data);
+//   }).catch((err)=>{
+//       return done(err,null);
+//   })
+
+// }
 function getAccessTokenOfUser(token, done) {
-  // Github APIs are authenticated and we have to share the token in headers
-  // The token is same as what we recieved in the previous step
   const opts = { headers: { Authorization: `token ${token}` } }
   axios.get('https://api.github.com/user', opts).then((response)=>{
       return done(null,response.data);
