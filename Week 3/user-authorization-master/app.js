@@ -5,7 +5,7 @@ const app = express();
 const morgan = require('morgan');
 const config = require("./config");
 const oauthrouter = require("./src");
-const src=require("./src/auth.controller");
+
 // Useful for logging the requests reaching to this server
 morgan.token('time', () => dateFormat.asString(dateFormat.ISO8601_FORMAT, new Date())); // Both morgan and log4js are configured to same date format, so that log reading is meaningful and not confusing due to different date formats
 app.use(morgan('[:time] :remote-addr :method :url :status :res[content-length] :response-time ms'));

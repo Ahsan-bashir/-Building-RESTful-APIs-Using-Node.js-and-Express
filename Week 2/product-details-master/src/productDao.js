@@ -3,7 +3,6 @@
 const fs = require("fs");
 const productsJSONData = require("./products.json");
 const path=require('path');
-const { log } = require("console");
 
 const dirPath=path.join(__dirname,'products.json')
 //The getProducts function take done as callback
@@ -35,8 +34,9 @@ const getProductById = function (id, done) {
       return done(err, undefined);
     }
     const productsData = JSON.parse(fileContent);
-    const productDetails = productsData.find((product) => product.id === id);
 
+    const productDetails = productsData.find((product) => product.id=== id);
+    console.log(productDetails);
     return done(undefined, productDetails);
   })
 }
