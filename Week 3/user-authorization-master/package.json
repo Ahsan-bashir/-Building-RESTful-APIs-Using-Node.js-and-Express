@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha ./test/*.spec.js",
+    "test": "cross-env NODE_ENV=test mocha ./test/*.spec.js",
     "start": "nodemon ./app.js"
   },
   "keywords": [],
@@ -19,5 +19,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.0.3",
     "supertest": "^6.2.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

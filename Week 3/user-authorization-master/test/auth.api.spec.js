@@ -5,6 +5,7 @@ const app = require("../app");
 const config = require("../config")
 describe('Testing the routes', () => {
     it('login route test found', (done) => {
+        
         supertest(app)
             .get('/oauth/login')
             .expect(302)
@@ -18,6 +19,7 @@ describe('Testing the routes', () => {
     
      
     it('callback route test unauthorized access', (done) => {
+        // this.timeout(5000);
         supertest(app)
             .get('/oauth/callback')
             .expect(401)
