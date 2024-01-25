@@ -12,12 +12,15 @@ app.use(morgan('[:time] :remote-addr :method :url :status :res[content-length] :
 
 app.use(express.static('static'));
 
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/static/index.html'));
 });
 
 // Mount point for the apis starting with /oauth
+
 app.use('/oauth', oauthrouter)
+
 
 const server = app.listen(config.PORT, () => {
   console.log(`App listening on port ${config.PORT}`);
