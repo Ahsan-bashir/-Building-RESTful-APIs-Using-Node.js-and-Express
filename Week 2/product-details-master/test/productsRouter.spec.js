@@ -12,6 +12,7 @@ describe("Testing products API", function () {
         expect(err).to.be.equal(null);
         expect(err).to.equal(null);
         expect(res.body).to.be.an("object");
+        console.log(res.body.STATUS);
         expect(res.body.STATUS).to.equal("OK");
         expect(res.body.data[0].name).to.be.equal("LED Monitor");
          expect(res.body.data[1].name).to.be.equal("Fridge");

@@ -1,28 +1,47 @@
-
 //import fs module
-
+const fs = require("fs");
+const path = require("path");
 
 
 
 //The getProducts function take done as callback
 //It will read the product.json file
 
+// productDao.js
 const getProducts = function(done){
-    
+  let productData;
+  try {
+    productData = fs.readFileSync(path.join(__dirname, 'products.json'));
+  } catch (err) {
+    return done(err, undefined);
+  }
 
-//parse the filecontent and save it in another varible say productdata
-//return the callback with first parameter as undefined and second parameter as productdata
-       
+  const productDetails = JSON.parse(productData);
+  // console.log(productDetails);
+  if(productDetails.length === 0){
+    return done(new Error("No products found"), undefined);
+  }
+console.log(productDetails);
+  done(undefined, productDetails);   
 }
 
 
 //The function getProductById will take two parameters first the id and second the callback
 //It will read the product.json file
-const getProductById = function(id,done){
-    //write all the logical steps
-    //return the callback with first parameter as undefined and second parameter as productDetails
-      
+const getProductById = function(id, done) {
+  try {
+    const productData = fs.readFileSync(path.join(__dirname, 'products.json'));
+    const productDetails = JSON.parse(productData);
+    const product = productDetails.find((p) => p.id == id);
+    console.log(product);
+    done(undefined, product);
+  } catch (err) {
+    done(err, undefined);
+  }
 }
+    
+      
+
 
 
 //The saveProductDetails method will take productDetails and done as callback
@@ -35,6 +54,9 @@ const saveProductDetails = function (ProductDetails, done) {
   //Write the productData into the file 
      
   //return the callback with undefined and ProductDetails
+  const parsedData = JSON.stringify(ProductDetails);
+  fs.writeFileSync(path.join(__dirname, 'products.json'), parsedData);
+  done(undefined, ProductDetails);
      
     
   }
