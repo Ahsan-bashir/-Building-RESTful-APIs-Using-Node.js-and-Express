@@ -26,17 +26,11 @@ function getGithubAccessToken(code, done) {
     })
     .catch(error => {
       if (error.response && error.response.data && error.response.data.error === 'bad_verification_code') {
-        // Check if we're in a test environment
-        if (process.env.NODE_ENV === 'test') {
-          // Call the done callback with an error
-          done(new Error('bad_verification_code'));
-        } else {
-          // Redirect the user to the login route to start the OAuth flow again
-          res.redirect('/login');
-        }
+        // Always call the done callback with an error
+        done(new Error('bad_verification_code'));
       } else {
         console.error(error);
-        res.status(401).send('Unauthorized');
+        done(error);
       }
     });
 

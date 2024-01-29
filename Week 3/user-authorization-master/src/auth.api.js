@@ -16,6 +16,9 @@ router.get('/login', (req, res) => {
 
 // Callback url to which github oauth code is sent 
 router.get('/callback', (req, res) => {
+        if (!req.query.code) {
+                return res.status(401).send('Unauthorized');
+              }
         console.log(`Code: ${req.query.code}`);
         console.log(`CLIENT_ID : ${CLIENT_ID}`);
         console.log(`CLIENT_SECRET : ${CLIENT_SECRET}`);
